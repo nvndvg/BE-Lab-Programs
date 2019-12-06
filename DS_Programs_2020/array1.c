@@ -8,35 +8,58 @@
 	Support the program with functions for each of the above operations.
 */
 
+
+/*
+	1. Linear Array as LA
+	2.
+*/
+
 /* SIMPLE ARRAY IMPLEMENTATION */
 
 #include	<stdio.h>
 #include	<stdlib.h>
 #include	<conio.h>
 
-int linearArray[100];
-int noOfElements = 0;
+#define TRUE 1
+#define FALSE 0
 
-void createArray ( void )
+typedef struct LinearArray
+{
+	int key;
+}Record;
+Record LA[20];
+
+int nElement = 0;
+
+Record getNextRecord ( void )
+{
+	Record data;
+	
+	scanf ( "%d", &data.key );
+	
+	return data;
+}
+
+void readData ( void )
 {
 	int i;
 	
 	printf ( "\n\tEnter the size of the array: ?\b" );
-	scanf ( "%d", &noOfElements );
+	scanf ( "%d", &nElement );
 	
 	printf ( "\n\tEnter the array elements one by one\n\t" );
-	for ( i = 1; i <= noOfElements; ++ i )
+	for ( i = 1; i <= nElement; ++ i )
 	{
-		scanf ( "%d", &linearArray[i] );
+		scanf ( "%d", &LA[i].key );
 		printf ( "\n\t" );
 	}
 }
 
-void displayElements ( void )
+void writeData ( void )
 {
 	int i;
 
-	if ( noOfElements == 0 )
+	if ( nElement == 0 )
 	{
 		printf ( "\n\n\tArray List is Empty\n" );
 		return;
@@ -45,87 +68,99 @@ void displayElements ( void )
 	printf ( "\n\tThe array elements are..\n\n" );
 	printf ( "\t(index  : value)\n\n" );
 
-	for ( i = 1; i <= noOfElements; ++ i )
+	for ( i = 1; i <= nElement; ++ i )
 	{
-		printf ( "\t  [%d]\t:%5d\n\n", i, linearArray[i] );
+		printf ( "\t  [%d]\t:%5d\n\n", i, LA[i] );
 	}
 	printf ( "\n" );	
 }
 
-void insertAnElement ( void )
+int validate ( int pos )
 {
-	int element, position;
+	if ( pos <= 0 )
+	{
+		return FALSE;
+	}
+	if ( pos > nElement )
+	{
+		
+	}
+}
+
+void addElement ( void )
+{
+	int ele, pos;
 	int counter;
 	
-	if ( noOfElements == 0 )
+	if ( nElement == 0 )
 	{
 		printf ( "\n\n\tArray List is Empty\n" );
 		return;
 	} 
 		
-	displayElements ( );
+	writeData ( );
 	
-	printf ( "\n\tEnter the valid position: ?\b" );
-	scanf ( "%d", &position );
+	printf ( "\n\tEnter the valid pos: ?\b" );
+	scanf ( "%d", &pos );
 	
-	if ( (position <= 0) || (position > noOfElements) )
+	if ( (pos <= 0) || (pos > nElement) )
 	{
 		printf ( "\n\tInvalid Position\n" );
 		return;
 	}
 	
 	printf ( "\n\tEnter an Element to insert: ?\b" );
-	scanf ( "%d", &element );
+	scanf ( "%d", &ele );
 	
 	/*Initialize counter*/
-	counter = noOfElements;	
-	while ( counter >= position )
+	counter = nElement;	
+	while ( counter >= pos )
 	{
 		/*Move elements downwards*/
-		linearArray[counter + 1] = linearArray[counter];
+		LA[counter + 1] = LA[counter];
 		counter = counter - 1;
 	}
-	linearArray[position] = element;
+	LA[pos] = ele;
 	
 	/*Reset the number of elements in Array*/
-	noOfElements = noOfElements + 1;
+	nElement = nElement + 1;
 	
 	printf ( "\n\tItem Inserted successfully\n" );
 }
 
-void deleteAnElement ( void )
+void deleteElement ( void )
 {
 	
-	int element, position;
+	int ele, pos;
 	int i;
 
-	if ( noOfElements == 0 )
+	if ( nElement == 0 )
 	{
 		printf ( "\n\n\tArray List is Empty\n" );
 		return;
 	} 
 	
-	displayElements ( );
+	writeData ( );
 	
-	printf ( "\n\tEnter the valid position: ?\b" );
-	scanf ( "%d", &position );
+	printf ( "\n\tEnter the valid pos: ?\b" );
+	scanf ( "%d", &pos );
 	
-	if ( (position <= 0) || (position > noOfElements) )
+	if ( (pos <= 0) || (pos > nElement) )
 	{
 		printf ( "\n\tInvalid Position\n" );
 		return;
 	}
 	
-	printf ( "\n\tDeleted Element: %d\n\n", linearArray[position] );
+	printf ( "\n\tDeleted Element: %d\n\n", LA[pos] );
 	
-	for ( i = position; i < noOfElements; ++ i )
+	for ( i = pos; i < nElement; ++ i )
 	{
 		/*Move elements upward*/
-		linearArray[i] = linearArray[i + 1];
+		LA[i] = LA[i + 1];
 	}		
 	
 	/*Reset the number of elements in Array*/
-	noOfElements = noOfElements - 1;
+	nItems = nItems - 1;
 }
 
 int main ( void )
